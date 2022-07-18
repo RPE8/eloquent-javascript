@@ -1,4 +1,10 @@
 const { range, sum } = require("../04_data/The-sum-of-a-range.js");
+const {
+  arrayToList,
+  listToArray,
+  prepend,
+  nth,
+} = require("../04_data/A-list.js");
 
 const assert = require("assert");
 
@@ -47,6 +53,53 @@ describe("The sum of the range", () => {
   describe("sum(range)", () => {
     it("sum(range(1, 10))", () => {
       assert.equal(sum(range(1, 10)), 55);
+    });
+  });
+});
+
+describe("A list", () => {
+  describe("arrayToList", () => {
+    it("arrayToList([1,2,3,4,5])", () => {
+      assert.deepStrictEqual(arrayToList([1, 2, 3, 4, 5]), {
+        value: 1,
+        rest: {
+          value: 2,
+          rest: {
+            value: 3,
+            rest: { value: 4, rest: { value: 5, rest: null } },
+          },
+        },
+      });
+    });
+    it("arrayToList([1])", () => {
+      assert.deepStrictEqual(arrayToList([1]), {
+        value: 1,
+        rest: null,
+      });
+    });
+    it("arrayToList([])", () => {
+      assert.equal(arrayToList([]), null);
+    });
+  });
+  describe("listToArray(arrayToList)", () => {
+    it("listToArray(arrayToList([10, 20, 30]))", () => {
+      assert.deepStrictEqual(
+        listToArray(arrayToList([10, 20, 30])),
+        [10, 20, 30]
+      );
+    });
+  });
+  describe("prepend", () => {
+    it("prepend(10, prepend(20, null))", () => {
+      assert.deepStrictEqual(prepend(10, prepend(20, null)), {
+        value: 10,
+        rest: { value: 20, rest: null },
+      });
+    });
+  });
+  describe("nth", () => {
+    it("nth(arrayToList([10, 20, 30]), 1)", () => {
+      assert.equal(nth(arrayToList([10, 20, 30]), 1), 20);
     });
   });
 });
