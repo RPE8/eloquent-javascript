@@ -5,6 +5,7 @@ const {
   prepend,
   nth,
 } = require("../04_data/A-list.js");
+const { deepEqual } = require("../04_data/Deep-comparison.js");
 
 const assert = require("assert");
 
@@ -101,5 +102,18 @@ describe("A list", () => {
     it("nth(arrayToList([10, 20, 30]), 1)", () => {
       assert.equal(nth(arrayToList([10, 20, 30]), 1), 20);
     });
+  });
+});
+
+describe("Deep comparison", () => {
+  const obj = { here: { is: "an" }, object: 2 };
+  it("deepEqual(obj, obj)", () => {
+    assert.equal(deepEqual(obj, obj), true);
+  });
+  it("deepEqual(obj, {here: 1, object: 2})", () => {
+    assert.equal(deepEqual(obj, { here: 1, object: 2 }), false);
+  });
+  it("deepEqual(obj, {here: {is: 'an'}, object: 2})", () => {
+    assert.equal(deepEqual(obj, { here: { is: "an" }, object: 2 }), true);
   });
 });
