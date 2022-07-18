@@ -19,7 +19,7 @@ function getChessboard(height, width) {
       chessBoard += "\n";
     }
   }
-  console.log(chessBoard);
+
   return chessBoard;
 }
 

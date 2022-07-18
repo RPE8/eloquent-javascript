@@ -16,6 +16,4 @@ function getTriangle(height) {
   return triangle;
 }
 
-console.log(getTriangle());
-
 module.exports = { getTriangle };
