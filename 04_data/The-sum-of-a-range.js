@@ -7,7 +7,7 @@ function range(start, end, step = 1) {
   }
 
   if (start !== newStart || newStep !== step) {
-    array = array.reverse();
+    array.reverse();
   }
 
   return array;
