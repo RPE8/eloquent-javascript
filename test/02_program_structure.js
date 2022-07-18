@@ -1,5 +1,6 @@
 const triangle = require("../02_program_structure/Looping-a-Triangle.js");
 const fizzBuzz = require("../02_program_structure/FizzBuzz.js");
+const chessboard = require("../02_program_structure/Chessboard.js");
 
 const assert = require("assert");
 
@@ -95,5 +96,77 @@ describe("FizzBuzz", function () {
     const resp =
       "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n";
     assert.equal(fizzBuzz.fizzBuzz(15), resp);
+  });
+});
+
+describe("Chessboard", function () {
+  describe("Valid parameters", function () {
+    it("1x1", function () {
+      const resp = " ";
+      assert.equal(chessboard.getChessboard(1, 1), resp);
+    });
+    it("2x1", function () {
+      const resp = " \n#";
+      assert.equal(chessboard.getChessboard(2, 1), resp);
+    });
+    it("1x2", function () {
+      const resp = " #";
+      assert.equal(chessboard.getChessboard(1, 2), resp);
+    });
+    it("2x2", function () {
+      const resp = " #\n# ";
+      assert.equal(chessboard.getChessboard(2, 2), resp);
+    });
+    it("3x2", function () {
+      const resp = " #\n# \n #";
+      assert.equal(chessboard.getChessboard(3, 2), resp);
+    });
+    it("2x3", function () {
+      const resp = " # \n# #";
+      assert.equal(chessboard.getChessboard(2, 3), resp);
+    });
+    it("3x3", function () {
+      const resp = " # \n# #\n # ";
+      assert.equal(chessboard.getChessboard(3, 3), resp);
+    });
+    it("4x4", function () {
+      const resp = " # #\n# # \n # #\n# # ";
+      assert.equal(chessboard.getChessboard(4, 4), resp);
+    });
+    it("5x5", function () {
+      const resp = " # # \n# # #\n # # \n# # #\n # # ";
+      assert.equal(chessboard.getChessboard(5, 5), resp);
+    });
+  });
+
+  describe("Invalid parameters", function () {
+    it("'a' x 1", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard("a", 1), resp);
+    });
+    it("'a' x 'a'", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard("a", "a"), resp);
+    });
+    it("Infinity x 2", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard(Infinity, 2), resp);
+    });
+    it("-1 x 2", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard(-1, 2), resp);
+    });
+    it("2 x 2.3", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard(2, 2.3), resp);
+    });
+    it("1 x {}", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard(1, {}), resp);
+    });
+    it("NaN x 2", function () {
+      const resp = undefined;
+      assert.equal(chessboard.getChessboard(NaN, 2), resp);
+    });
   });
 });
