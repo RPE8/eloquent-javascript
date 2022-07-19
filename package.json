@@ -1,5 +1,12 @@
 {
+  "name": "eloquent-js",
+  "version": "1.0.0",
+  "description": "eloquent-js tasks with tests",
   "scripts": {
     "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
   }
 }
