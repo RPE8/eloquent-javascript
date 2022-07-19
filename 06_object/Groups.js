@@ -4,6 +4,10 @@ class Group {
     this.#group = Object.create(null);
   }
 
+  getGroup() {
+    return this.#group;
+  }
+
   #getGroup() {
     return this.#group;
   }

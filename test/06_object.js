@@ -4,6 +4,7 @@ const expect = chai.expect;
 
 const Vector = require("../06_object/A-vector-type.js");
 const Group = require("../06_object/Groups.js");
+const IterableGroup = require("../06_object/Iterable-groups.js");
 
 describe("Vector", () => {
   it("Vector should be created succesfully", () => {
@@ -60,5 +61,34 @@ describe("Group", () => {
     group.has(30).should.equal(true);
     group.has(10).should.equal(false);
     group.has(20).should.equal(true);
+  });
+});
+
+describe("Iterable group", () => {
+  it("Iterable Group should be created succesfully", () => {
+    const group = new IterableGroup();
+    (group instanceof IterableGroup).should.equal(true);
+  });
+  it("Iterable Group from  & has methods should work correctly", () => {
+    const group = IterableGroup.from([10, 20]);
+    group.has(10).should.equal(true);
+    group.has(20).should.equal(true);
+    group.has(30).should.equal(false);
+    group.add(30);
+    group.has(30).should.equal(true);
+    group.has(10).should.equal(true);
+    group.has(20).should.equal(true);
+    group.delete(10);
+    group.has(30).should.equal(true);
+    group.has(10).should.equal(false);
+    group.has(20).should.equal(true);
+  });
+  it("Iterable Group should iterable", () => {
+    const group = IterableGroup.from([10, 20]);
+    let values = [];
+    for (const value of group) {
+      values.push(value);
+    }
+    values.join(" ").should.equal("10 20");
   });
 });
