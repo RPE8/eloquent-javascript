@@ -1,5 +1,6 @@
 const { flatten } = require("../05_higher_order/Flattening.js");
 const { loop } = require("../05_higher_order/Your-own-loop.js");
+const { every } = require("../05_higher_order/Everything.js");
 
 const assert = require("assert");
 
@@ -24,5 +25,26 @@ describe("Your own loop", () => {
       }
     ),
       assert.equal(sum, 6);
+  });
+});
+
+describe("Everything", () => {
+  it("every([1, 3, 5], n => n < 10))", () => {
+    assert.equal(
+      every([1, 3, 5], (n) => n < 10),
+      true
+    );
+  });
+  it("every([2, 4, 16], n => n < 10)", () => {
+    assert.equal(
+      every([2, 4, 16], (n) => n < 10),
+      false
+    );
+  });
+  it("every([], n => n < 10)", () => {
+    assert.equal(
+      every([], (n) => n < 10),
+      true
+    );
   });
 });
