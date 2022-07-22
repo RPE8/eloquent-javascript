@@ -9,10 +9,14 @@ const levelPlan = `
 ..#..............=.#..
 ..#.........o.o....#..
 ..#.@......#####...#..
-..#####............#..
-......#++++++++++++#..
-......##############..
+..#................#..
+..#....++++++++++++#..
+..##################..
 ......................`;
+const l2 = `
+.............
+.@...o.......
+`;
 // const simpleLevel = new Level(levelPlan);
 // const display = new DOMDisplay(document.body, simpleLevel);
 // display.syncState(State.start(simpleLevel));
@@ -58,6 +62,7 @@ function runLevel(level, Display) {
         return true;
       } else {
         display.clear();
+        // if
         resolve(state.status);
         return false;
       }
@@ -73,4 +78,4 @@ async function runGame(plans, Display) {
   console.log("You've won!");
 }
 
-runGame([levelPlan], DOMDisplay);
+runGame([levelPlan, l2], DOMDisplay);
