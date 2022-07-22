@@ -2,19 +2,24 @@ import Level from "./Level.js";
 import State from "./State.js";
 import DOMDisplay from "./DOMDisplay.js";
 
-const levelPlan = `
-......................
-..#................#..
-..#................#..
-..#.........o.o....#..
-..#.@.M....#####...#..
-..#................#..
-..#....++++++++++++#..
-..##################..
-......................`;
+// const levelPlan = `
+// ......................
+// ..#................#..
+// ..#................#..
+// ..#.........o.o....#..
+// ..#.@......#####...#..
+// ..#................#..
+// ..#....++++++++++++#..
+// ..##################..
+// ......................`;
 const l2 = `
 .............
-.@...o.....M.
+.............
+.............
+.............
+.............
+.............
+.@...o.#...Mo
 `;
 // const simpleLevel = new Level(levelPlan);
 // const display = new DOMDisplay(document.body, simpleLevel);
@@ -130,4 +135,4 @@ async function runGame(plans, Display) {
   gameStateKeys.removeListener();
 }
 
-runGame([levelPlan, l2], DOMDisplay);
+runGame([l2], DOMDisplay);

@@ -13,17 +13,20 @@ class Monster {
   }
 
   static create(pos) {
-    return new Monster(pos.plus(new Vec(0, -1)), new Vec(0, 0));
+    return new Monster(pos.plus(new Vec(0, -1)), new Vec(1, 0));
   }
 
   update(time, state) {
-    let newPos = this.pos.plus(this.speed.times(time));
+    const player = state.actors.find((actor) => actor.type === "player");
+    const newTime = player.pos.x < this.pos.x ? -time : time;
+    let newPos = this.pos.plus(this.speed.times(newTime));
+
     if (!state.level.touches(newPos, this.size, "wall")) {
       return new Monster(newPos, this.speed, this.reset);
     } else if (this.reset) {
       return new Monster(this.reset, this.speed, this.reset);
     } else {
-      return new Monster(this.pos, this.speed.times(-1));
+      return new Monster(newPos, this.speed.times(0));
     }
   }
 
