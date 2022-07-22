@@ -2,11 +2,10 @@ import Level from "./Level.js";
 import State from "./State.js";
 import DOMDisplay from "./DOMDisplay.js";
 
-const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
 const levelPlan = `
 ......................
 ..#................#..
-..#..............=.#..
+..#................#..
 ..#.........o.o....#..
 ..#.@......#####...#..
 ..#................#..
@@ -31,7 +30,33 @@ function trackKeys(keys) {
   }
   window.addEventListener("keydown", track);
   window.addEventListener("keyup", track);
+  down.removeListener = () => {
+    window.addEventListener("keydown", track);
+    window.addEventListener("keyup", track);
+  };
   return down;
+}
+
+function trackPause(keys) {
+  let states = Object.create(null);
+  function track(event) {
+    if (keys.includes(event.key)) {
+      if (event.type === "keyup") {
+        window.addEventListener("keydown", track);
+        return;
+      }
+      states["paused"] = !states["paused"];
+      event.preventDefault();
+      window.removeEventListener("keydown", track);
+    }
+  }
+  states.removeListener = () => {
+    window.addEventListener("keydown", track);
+    window.addEventListener("keyup", track);
+  };
+  window.addEventListener("keydown", track);
+  window.addEventListener("keyup", track);
+  return states;
 }
 
 function runAnimation(frameFunc) {
@@ -47,12 +72,13 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame);
 }
 
-function runLevel(level, Display) {
+function runLevel({ level, Display, arrowKeys, gameStateKeys }) {
   let display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
   return new Promise((resolve) => {
     runAnimation((time) => {
+      if (gameStateKeys?.paused) return;
       state = state.update(time, arrowKeys);
       display.syncState(state);
       if (state.status == "playing") {
@@ -71,11 +97,37 @@ function runLevel(level, Display) {
 }
 
 async function runGame(plans, Display) {
+  const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
+  const gameStateKeys = trackPause(["Escape"]);
+
+  let lives = 3;
   for (let level = 0; level < plans.length; ) {
-    let status = await runLevel(new Level(plans[level]), Display);
-    if (status == "won") level++;
+    console.log(lives);
+    let status = await runLevel({
+      level: new Level(plans[level]),
+      Display,
+      arrowKeys,
+      gameStateKeys,
+    });
+    switch (status) {
+      case "won": {
+        level++;
+        break;
+      }
+      case "lost": {
+        lives--;
+        if (lives <= 0) {
+          console.log("GAME OVER");
+          level = 0;
+          lives = 3;
+          continue;
+        }
+      }
+    }
   }
   console.log("You've won!");
+  arrowKeys.removeListener();
+  gameStateKeys.removeListener();
 }
 
 runGame([levelPlan, l2], DOMDisplay);

@@ -1,4 +1,4 @@
-const scale = 30;
+const scale = 25;
 
 class DOMDisplay {
   constructor(parent, level) {
