@@ -2,11 +2,13 @@ import Player from "./Player.js";
 import Lava from "./Lava.js";
 import Coin from "./Coin.js";
 import Vec from "./Vec.js";
+import Monster from "./Monster.js";
 
 const levelChars = {
   ".": "empty",
   "#": "wall",
   "+": "lava",
+  M: Monster,
   "@": Player,
   o: Coin,
   "=": Lava,
@@ -23,7 +25,6 @@ class Level {
     this.height = rows.length;
     this.width = rows[0].length;
     this.startActors = [];
-    debugger;
     this.rows = rows.map((row, y) => {
       return row.map((ch, x) => {
         let type = levelChars[ch];
