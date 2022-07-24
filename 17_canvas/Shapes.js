@@ -2,6 +2,7 @@ console.log("test");
 
 let trapezoid = document.querySelector("#trapezoid").getContext("2d");
 let diamond = document.querySelector("#diamond").getContext("2d");
+let zigzag = document.querySelector("#zigzagging").getContext("2d");
 //
 function createTrapezoid(cx, x, y, width, height, diffMul) {
   const diff = width * diffMul;
@@ -17,7 +18,7 @@ function createTrapezoid(cx, x, y, width, height, diffMul) {
   cx.stroke();
 }
 
-function createDiamond(cx, x, y, height, width) {
+function createDiamond(cx, x, y, width, height) {
   const paddingX = x;
   const paddingY = y;
   cx.translate(paddingX + width / 2, paddingY + height / 2);
@@ -26,6 +27,20 @@ function createDiamond(cx, x, y, height, width) {
   cx.fillRect(-paddingX, -paddingY, width, height);
 }
 
+function zigzagging(cx, x, y, zigzags, width, height) {
+  cx.beginPath();
+  cx.moveTo(x, y);
+  cx.save();
+  for (let i = 0; i < zigzags; i++) {
+    cx.lineTo(x + width, y + i * height + height / 2);
+    cx.lineTo(x, y + i * height + height);
+  }
+  // cx.closePath();
+  cx.stroke();
+}
+
 createTrapezoid(trapezoid, 0, 0, 100, 50, 0.1);
 
 createDiamond(diamond, 35, 0, 50, 50);
+
+zigzagging(zigzag, 0, 0, 20, 50, 10);
