@@ -3,6 +3,7 @@ console.log("test");
 let trapezoid = document.querySelector("#trapezoid").getContext("2d");
 let diamond = document.querySelector("#diamond").getContext("2d");
 let zigzag = document.querySelector("#zigzagging").getContext("2d");
+let spiral = document.querySelector("#spiral").getContext("2d");
 //
 function createTrapezoid(cx, x, y, width, height, diffMul) {
   const diff = width * diffMul;
@@ -39,8 +40,14 @@ function zigzagging(cx, x, y, zigzags, width, height) {
   cx.stroke();
 }
 
+function createSpiral(cx, x, y, zigzags, width, height) {
+  console.log("test'");
+}
+
 createTrapezoid(trapezoid, 0, 0, 100, 50, 0.1);
 
 createDiamond(diamond, 35, 0, 50, 50);
 
 zigzagging(zigzag, 0, 0, 20, 50, 10);
+
+createSpiral(spiral);
