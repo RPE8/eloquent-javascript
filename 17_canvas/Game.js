@@ -1,6 +1,7 @@
 import Level from "./Level.js";
 import State from "./State.js";
 import DOMDisplay from "./DOMDisplay.js";
+import CanvasDisplay from "./CanvasDisplay.js";
 
 // const levelPlan = `
 // ......................
@@ -135,4 +136,4 @@ async function runGame(plans, Display) {
   gameStateKeys.removeListener();
 }
 
-runGame([l2], DOMDisplay);
+runGame([l2], CanvasDisplay);
